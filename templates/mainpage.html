@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>Application</title>
+</head>
+<body>
+<form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+    <input id="file-picker" type="file" name="file"  multiple>
+    <input type="submit" value="Upload" id="upload-button">
+</form>
+<h3>Download</h3>
+<form id = "download-file" method="post" action="{{ url_for('download_file') }}" >
+ <p>Input hash: <input type="text" name="namefile"></p>
+ <input type="submit" value="Download" id="download-button">
+</form>
+<h3>Delete</h3>
+<form id = "delete-file" method="post" action="{{ url_for('delete_file') }}" >
+ <p>Input hash: <input type="text" name="deletefile"></p>
+ <input type="submit" value="Delete" id="delete-button">
+</form>
+</body>
