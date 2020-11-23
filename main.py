@@ -18,10 +18,10 @@ def pathFile(hashname):
        dir1 = hashname[0:2]
     else:
         hashname=hashname + '0z'
-    # pathdir='/storage/'+'dir1' + '/' #./
-    pathdir = 'C:/Users/yuliya.kudasova/PycharmProjects/test' + '/storage/' + dir1 + '/'
+        dir1 = hashname[0:2]
+
+    pathdir = '/storage/' + dir1 + '/'
     path = pathdir + hashname
-    print(path)
     Path(pathdir).mkdir(parents=True, exist_ok=True)
     return path
 
@@ -45,19 +45,21 @@ def upload():
     elif request.method == 'GET':
         filename = request.form.get('filename')
         if len(filename)>=2:
-            pathdir = 'C:/Users/yuliya.kudasova/PycharmProjects/test/storage/' + filename[0:2]
+            pathdir = '/storage/' + filename[0:2]
             return send_from_directory(pathdir, filename, as_attachment=True)
         else:
             return "Name is not correct"
     elif request.method == 'DELETE':
         filename = request.form.get('filename')
-        path = pathFile(filename)
-        if os.path.exists(path):
-            os.remove(path)
-            return "Ok"
+        if len(filename) >= 2:
+            path = pathFile(filename)
+            if os.path.exists(path):
+                os.remove(path)
+                return "Ok"
+            else:
+                return "File does not exist"
         else:
-            return "File does not exist"
-
+            return "Name is not correct"
 
 if __name__ == "__main__":
     app.run()
